@@ -6,6 +6,12 @@ from typing import List, Tuple
 
 
 class ProvePairs:
+    """
+        step 1) Find pairs
+            - Correlation test.
+                -> Historical return correlation to determine pairs
+                -> Note: Use "PRICE SPREAD"
+    """
     @staticmethod
     def _create_test_pairs(num:int) -> List:
         dt = datetime.now()
@@ -25,7 +31,7 @@ class ProvePairs:
                 result.append((s0, s1))
         return result
 
-    def test_pairs(self, corr_month:int=12, corr_thres:float=0.70) -> List:
+    def test_pairs(self, corr_month:int=12, corr_thres:float=0.70, corr_calc_dates:int=365) -> List:
         td = self._create_test_pairs(corr_month)
         # Test set
         test_first = True
@@ -35,7 +41,7 @@ class ProvePairs:
             univ = p.mnt_universe()
 
             corr_pairs = p.create_pairs(
-                p.get_hist_prc(univ, howmany=365),
+                p.get_hist_prc(univ, howmany=corr_calc_dates),
                 thres=corr_thres,
                 similar=True
             )
