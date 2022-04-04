@@ -44,12 +44,9 @@ class Pairs:
         return p
 
     def create_pairs(self, prc:pd.DataFrame, thres:float, similar:bool=True) -> pd.DataFrame:
-        """
-
-        """
-        d = prc.dropna(axis=1).pct_change().dropna().corr()
+        # d = prc.dropna(axis=1).pct_change().dropna().corr()
         # Delete Stocks with short periods
-        d = d.dropna(axis=1)
+        d = prc.dropna(axis=1)
         d = d.pct_change().dropna()
         crr = d.corr()
         if similar is True:
