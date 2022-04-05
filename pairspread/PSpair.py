@@ -1,7 +1,11 @@
+import numpy as np
+
 from dbm.DBmssql import MSSQL
 from dbm.DBquant import PyQuantiwise
 
 import pandas as pd
+import numpy as np
+from statsmodels.tsa.stattools import coint
 
 from datetime import datetime, timedelta
 from typing import Iterable, Dict
@@ -43,7 +47,35 @@ class Pairs:
         p = p.pivot_table(index='date', columns='id')
         return p
 
-    def create_pairs(self, prc:pd.DataFrame, thres:float, similar:bool=True) -> pd.DataFrame:
+    def create_pairs_coint(self, prc:pd.DataFrame, thres:float) -> Dict:
+        # Prep Data
+        d = prc.dropna(axis=1)
+        n = d.shape[1]
+        k = d.keys()
+
+        # Result containers
+        score_matrix, pval_matrix = (
+            np.zeros((n, n)),
+            np.zeros((n, n))
+        )
+        res = dict()
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                s0, s1 = d[k[i]], d[k[j]]
+                result = coint(s0, s1)
+
+                score_matrix[i, j] = result[0]
+                pval_matrix[i, j] = result[1]
+
+                if result[1] < thres:
+                    if k[i][1] not in res.keys():
+                        res[k[i][1]] = [k[j][1]]
+                    else:
+                        res[k[i][1]].append(k[j][1])
+        return res
+
+    def create_pairs_corr(self, prc:pd.DataFrame, thres:float, similar:bool=True) -> Dict:
         # d = prc.dropna(axis=1).pct_change().dropna().corr()
         # Delete Stocks with short periods
         d = prc.dropna(axis=1)
