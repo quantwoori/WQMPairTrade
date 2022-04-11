@@ -45,4 +45,6 @@ for stock_pairs in approve:
         print(f">> Sell {s1}")
         print(f">> Buy {s2}")
         print("==============================")
+    else:
+        print("Nah")
 
