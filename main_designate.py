@@ -15,3 +15,4 @@ for stock_pairs in designate:
     spd = Spread(s1, s2)
     ps = spd.get_price(600)
     ps = spd.get_spread(ps)
+    ps.to_csv(f"{s1}_{s2}.csv")

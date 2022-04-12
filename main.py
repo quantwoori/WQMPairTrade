@@ -33,7 +33,7 @@ for stock_pairs in approve:
     ps = spd.get_spread(ps)
 
     # Trade Signals
-    bsig, ssig = spd.trade_signal(ps)
+    bsig, ssig = spd.trade_signal_bt(ps)
     backtest = RatioBackTest(
         stock1=s1,
         stock2=s2,

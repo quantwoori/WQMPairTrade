@@ -58,9 +58,10 @@ class Spread:
         return p[prc.columns.tolist() + ['spread_AB']]
 
     @staticmethod
-    def trade_signal(spread_data:pd.DataFrame, buy_threshold:float=-1.0,
-                     sell_threshold:float=1.0) -> (Set, Set):
+    def trade_signal_bt(spread_data:pd.DataFrame, buy_threshold:float=-1.0,
+                        sell_threshold:float=1.0) -> (Set, Set):
         """
+        Strictly for backtesting
         Spread Calc Now
 
         Case #1. StockA - StockB > 0

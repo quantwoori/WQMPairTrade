@@ -31,7 +31,7 @@ for stock_pairs in approve:
     ps = spd.get_spread(ps)
 
     # Trade Signals
-    bsig, ssig = spd.trade_signal(ps)
+    bsig, ssig = spd.trade_signal_bt(ps)
     td = (datetime.now() - timedelta(days=1)).strftime('%Y%m%d')
     if td in bsig:
         print("=========Trade Signal=========")
