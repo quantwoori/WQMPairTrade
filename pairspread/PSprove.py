@@ -31,7 +31,7 @@ class ProvePairs:
                 result.append((s0, s1))
         return result
 
-    def test_pairs(self, corr_month:int=12, corr_thres:float=0.70, corr_calc_dates:int=365,
+    def test_pairs(self, corr_month:int=12, corr_thres:float=0.65, corr_calc_dates:int=365,
                    corr_count:int=12) -> List:
         td = self._create_test_pairs(corr_month)
         # Test set
