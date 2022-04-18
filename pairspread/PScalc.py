@@ -3,7 +3,7 @@ import numpy.linalg as la
 
 
 def tls(X, y):
-    if X.ndim is 1:
+    if X.ndim == 1:
         n = 1  # the number of variable of X
         X = X.reshape(len(X), 1)
     else:
